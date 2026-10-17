@@ -329,6 +329,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function renderSet() {
     var el = $('v-set'); if (!el) return;
     var st = S.settings, h = '';
+    h += '<h2>📲 アプリとして使う</h2><div class="card">' + (typeof standalone !== 'undefined' && standalone ? '<span class="badge done">✔ ホーム画面に追加ずみ</span><p class="muted" style="margin-bottom:0">このままアプリとしてお使いいただけます。</p>' : '<p class="muted" style="margin-top:0">ホーム画面に追加すると、毎日すぐ開けて、電波がなくても使えます。</p><button class="pri" data-act="installBtn" style="width:100%">📲 ホーム画面に追加する</button>') + '</div>';
     h += '<h2>✍️ 質問のカスタマイズ</h2><div class="card" id="addBox"><select id="nc" aria-label="カテゴリ">' + CATS.map(function (c, i) { return '<option value="' + i + '">' + esc(c) + '</option>'; }).join('') + '</select><textarea id="nt" style="min-height:80px;margin:8px 0" placeholder="新しい質問を入力"></textarea><button class="pri" data-act="addQ" style="width:100%">質問を追加する</button></div>';
     h += '<details><summary><span>質問の一覧（編集・非表示）</span></summary><div class="dbody">';
     S.questions.forEach(function (q) {
@@ -427,6 +428,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!/^\d{4}$/.test(a1)) { toast('4けたの数字を入力してください'); return; }
         if (a1 !== a2) { toast('2つの数字が一致しません'); return; }
         S.settings.lock = true; S.settings.pass = hash(a1); unlocked = true; save(); toast('パスコードを設定しました'); renderSet();
+      }
+      else if (act === 'installBtn') {
+        if (installEv) { var ie = installEv; installEv = null; ie.prompt(); if (ie.userChoice && ie.userChoice.then) ie.userChoice.then(function (r) { if (r && r.outcome === 'accepted') toast('ホーム画面に追加しました'); }).catch(function () { }); }
+        else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) { alert('画面下（または上）の共有ボタン「□↑」をタップして、「ホーム画面に追加」を選んでください。'); }
+        else { alert('ブラウザのメニュー（︙ や 共有ボタン）から「ホーム画面に追加」または「アプリをインストール」を選んでください。すでに追加ずみの場合は、ホーム画面のアイコンから開けます。'); }
       }
       else if (act === 'export') download();
       else if (act === 'share') share();
