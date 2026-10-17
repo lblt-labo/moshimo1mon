@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>もしもいちもん - 1日1問で完成するエンディングノート</title>
+<meta name="description" content="1日1問の回答形式で挫折せずに作成できる、デジタル遺産対応スマート・エンディングノート。">
+<meta name="theme-color" content="#1f4e79">
+<meta property="og:type" content="website">
+<meta property="og:title" content="もしもいちもん - 1日1問で完成するエンディングノート">
+<meta property="og:description" content="1日1問の回答形式で挫折せずに作成できる、デジタル遺産対応スマート・エンディングノート。">
+<meta property="og:image" content="./ogp.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="もしもいちもん - 1日1問で完成するエンディングノート">
+<meta name="twitter:description" content="1日1問の回答形式で挫折せずに作成できる、デジタル遺産対応スマート・エンディングノート。">
+<meta name="twitter:image" content="./ogp.png">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<style>
+:root{--main:#1f4e79;--main-l:#e6eff7;--acc:#b85c00;--acc-l:#fff1e0;--bg:#f7f5f0;--card:#fff;--tx:#222;--sub:#555;--bd:#8a97a3;--ok:#1f4e79}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;line-height:1.7;font-size:16px}
+header.top{position:sticky;top:0;z-index:20;background:var(--main);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;padding-top:calc(8px + env(safe-area-inset-top,0px))}
+header.top h1{font-size:1.15rem;margin:0;line-height:1.3}
+header.top small{display:block;font-size:.7rem;opacity:.9;font-weight:400}
+button,.btn{font:inherit;min-height:44px;min-width:44px;border-radius:10px;border:2px solid var(--main);background:#fff;color:var(--main);padding:8px 14px;cursor:pointer;font-weight:700}
+button:active{transform:scale(.97);background:var(--main-l)}
+button.pri{background:var(--main);color:#fff}
+button.warn{border-color:var(--acc);color:var(--acc)}
+button.help{background:#fff;color:var(--main);border-radius:50%;width:44px;height:44px;padding:0;font-size:1.3rem}
+button.link{border:none;background:none;text-decoration:underline;color:var(--main);min-height:44px}
+main{max-width:640px;margin:0 auto;padding:14px 14px 90px}
+.view{display:none}.view.on{display:block}
+.card{background:var(--card);border:1px solid #d5d9dd;border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.badge{display:inline-block;background:var(--main-l);color:var(--main);border:1px solid var(--main);border-radius:999px;padding:1px 12px;font-size:.8rem;font-weight:700}
+.badge.done{background:var(--main);color:#fff}
+.badge.todo{background:var(--acc-l);color:var(--acc);border-color:var(--acc)}
+.q{font-size:1.2rem;font-weight:700;margin:10px 0}
+textarea,input[type=text],input[type=search],input[type=password],select{width:100%;font:inherit;padding:10px;border:2px solid var(--bd);border-radius:10px;background:#fff;color:var(--tx);min-height:44px}
+textarea{min-height:130px;resize:vertical}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.iv{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.iv label{flex:1 1 auto;display:block}
+.iv input{position:absolute;opacity:0;pointer-events:none}
+.iv span{display:flex;align-items:center;justify-content:center;min-height:44px;padding:6px 12px;border:2px solid var(--bd);border-radius:10px;background:#fff;text-align:center;font-weight:700;font-size:.9rem}
+.iv input:checked+span{background:var(--main);color:#fff;border-color:var(--main)}
+.iv input:checked+span::before{content:"✔ "}
+.iv input:focus-visible+span{outline:3px solid var(--acc)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row>*{flex:1 1 auto}
+.muted{color:var(--sub);font-size:.88rem}
+h2{font-size:1.1rem;margin:18px 0 8px;color:var(--main);border-left:6px solid var(--acc);padding-left:8px}
+details{border:1px solid #d5d9dd;border-radius:12px;background:#fff;margin-bottom:8px}
+summary{list-style:none;cursor:pointer;padding:10px 12px;min-height:44px;display:flex;gap:8px;align-items:center;justify-content:space-between}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"▼";font-size:.7rem;color:var(--sub)}
+details[open] summary::after{content:"▲"}
+.dbody{padding:0 12px 12px}
+.ans{white-space:pre-wrap;background:var(--main-l);border-radius:10px;padding:10px;margin:8px 0}
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:20;background:#fff;border-top:2px solid var(--main);display:flex;padding-bottom:env(safe-area-inset-bottom,0px)}
+nav.tabs button{flex:1;border:none;border-radius:0;min-height:58px;background:#fff;color:var(--sub);font-size:.8rem;line-height:1.3}
+nav.tabs button b{display:block;font-size:1.3rem}
+nav.tabs button[aria-current=page]{color:#fff;background:var(--main)}
+.ov{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:16px}
+.ov.on{display:flex}
+.modal{background:#fff;border-radius:16px;padding:18px;max-width:560px;width:100%;max-height:88vh;overflow:auto}
+#lock{background:var(--main);z-index:99}
+#lock .modal{text-align:center}
+#lock input{text-align:center;font-size:1.6rem;letter-spacing:.5em;max-width:220px}
+#toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%) translateY(20px);background:#222;color:#fff;padding:10px 18px;border-radius:999px;opacity:0;transition:.25s;z-index:80;pointer-events:none;max-width:90%;text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%)}
+#install{position:fixed;left:10px;right:10px;bottom:-200px;z-index:60;background:#fff;border:2px solid var(--main);border-radius:16px;padding:12px;transition:bottom .4s;max-width:620px;margin:0 auto}
+#install.on{bottom:74px}
+.sw{display:flex;align-items:center;gap:10px;min-height:44px}
+.sw input{width:28px;height:28px}
+.qrow{border-top:1px solid #ddd;padding:10px 0}
+#printArea{display:none}
+footer a{min-height:44px}
+@media print{
+ @page{size:A4;margin:15mm}
+ body{background:#fff;font-size:11pt}
+ header.top,nav.tabs,main,#toast,#install,.ov,footer{display:none!important}
+ #printArea{display:block!important}
+ #printArea h1{font-size:16pt;text-align:center;margin:0 0 4mm}
+ #printArea h2{font-size:13pt;border-left:4px solid #000;margin:6mm 0 2mm;break-after:avoid}
+ #printArea .pi{break-inside:avoid;margin-bottom:3mm;border-bottom:1px dotted #888;padding-bottom:2mm}
+ #printArea .pq{font-weight:700}
+ #printArea .pa{white-space:pre-wrap;margin-left:4mm}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>もしもいちもん<small>1日1問で完成するエンディングノート</small></h1>
+  <button class="help" data-act="help" aria-label="ヘルプ">❓</button>
+</header>
+<main>
+  <section id="v-home" class="view on"></section>
+  <section id="v-note" class="view"></section>
+  <section id="v-set" class="view"></section>
+</main>
+<nav class="tabs" aria-label="メニュー">
+  <button data-act="tab" data-t="home" aria-current="page"><b>📝</b>今日の1問</button>
+  <button data-act="tab" data-t="note"><b>📖</b>ノート</button>
+  <button data-act="tab" data-t="set"><b>⚙️</b>設定</button>
+</nav>
+
+<div id="printArea"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<div id="install" role="dialog" aria-label="ホーム画面に追加">
+  <p style="margin:0 0 8px"><b>📲 ホーム画面に追加してアプリとして使う</b><br><span class="muted" id="installMsg">毎日すぐ開けて、電波がなくても使えます。</span></p>
+  <div class="row"><button class="pri" id="installGo">追加する</button><button id="installNo">あとで</button></div>
+</div>
+
+<div class="ov" id="helpOv"><div class="modal" role="dialog" aria-label="ヘルプ">
+  <h2 style="margin-top:0">❓ つかいかた</h2>
+  <h3>① 書いた内容の保管場所</h3>
+  <p>入力した内容は<b>あなたのスマホ（この端末）の中だけ</b>に保存されます。インターネット上のサーバーには送られず、運営者にも見られません。ただし端末を替えたり、ブラウザの履歴を消したりすると消えることがあるので、バックアップをおすすめします。</p>
+  <h3>② 1日1問のしくみ</h3>
+  <p>毎日、1つだけ質問が出ます。思いつかなければ、あとで答えてもOKです。答えたときに「次にいつ見直すか」を選べます。時期が来ると同じ質問がもう一度出て、変わっていなければ<b>「変更なし」を1回タップ</b>するだけで完了です。</p>
+  <h3>③ バックアップと家族への共有</h3>
+  <p>「設定」の<b>バックアップ</b>で、内容をファイルとして保存できます。「共有」ボタンから、ファイルアプリやクラウド、家族のスマホへ送れます。「ノート」の印刷ボタンから、紙やPDFにして渡すこともできます。パスコードや大切な情報の取り扱いには、ご注意ください。</p>
+  <button class="pri" data-act="closeOv" style="width:100%">とじる</button>
+</div></div>
+
+<div class="ov" id="lock"><div class="modal">
+  <h2 style="margin-top:0">🔒 パスコードを入力</h2>
+  <p class="muted">4けたの数字を入力してください</p>
+  <input type="password" id="lockIn" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" aria-label="パスコード">
+  <p id="lockErr" style="color:var(--acc);font-weight:700;min-height:1.5em"></p>
+  <button class="pri" data-act="unlock" style="width:100%">ひらく</button>
+  <button class="link" data-act="forgot">パスコードを忘れた場合</button>
+</div></div>
+
+<footer style="text-align: center; font-size: 0.75rem; color: #888; margin-top: 3rem; padding: 1rem 0.5rem; line-height: 1.5;">
+  <p style="margin-bottom: 0.5rem;">【ご利用について】</p>
+  <p style="margin-bottom: 0.5rem;">本アプリの利用に伴うトラブルやデータ損失等について、開発者は一切の責任を負いかねます。</p>
+  <p style="margin-bottom: 0.5rem;">ご意見・不具合のご報告は X（<a href="https://x.com/lblt_labo" target="_blank" rel="noopener" style="color: #666; text-decoration: underline;">@lblt_labo</a>）までお願いいたします。</p>
+  <p style="margin-top: 0.5rem;"><a href="https://ofuse.me/lbltlabo/letter" target="_blank" rel="noopener noreferrer" style="color: #666; text-decoration: underline;">☕️ 開発者を応援する / メッセージを送る</a></p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var KEY = 'moshimo_ichimon_v1', DAY = 86400000;
+  var CATS = ['基本情報・緊急対応','資産・契約・金融関係','デジタル遺品・SNS・スマホ','医療・介護の希望','葬儀・お墓・整理','想い・メッセージ・遺言'];
+  var QS = [
+  [0,'氏名・生年月日・本籍地・マイナンバーカードの保管場所はどこですか？'],
+  [0,'緊急時に真っ先に連絡してほしい人（名前・電話番号・続柄）は誰ですか？'],
+  [0,'かかりつけの病院や、現在服用している薬・持病・アレルギーはありますか？'],
+  [0,'健康保険証・年金手帳・パスポートなどの貴重品はどこに保管していますか？'],
+  [0,'信頼できるかかりつけ医や主治医の連絡先・病院名は？'],
+  [1,'利用している主要な銀行口座（金融機関名・支店名・用途）を教えてください。'],
+  [1,'ネット銀行や電子マネー（PayPayなど）の利用状況や残高の有無は？'],
+  [1,'クレジットカード（所有カード・引落口座）の一覧を教えてください。'],
+  [1,'定期購入しているサブスク（動画配信、アプリ、有料会員等）は何がありますか？'],
+  [1,'株式・投資信託・暗号資産（仮想通貨）などの運用資産はありますか？'],
+  [1,'生命保険・損害保険などの加入状況（保険会社名・証券番号・保管場所）は？'],
+  [1,'不動産（自宅・土地等）の所有状況や権利証の保管場所はどこですか？'],
+  [1,'借入金・ローン・奨学金・後払いサービスなどの負債はありますか？'],
+  [1,'セーフティボックス（金庫）や貸金庫の利用はありますか？鍵の場所は？'],
+  [1,'誰かに貸しているお金や、逆に借りているお金はありますか？'],
+  [1,'光熱費や携帯料金などの公共料金の引き落とし口座はどこですか？'],
+  [1,'ポイ活やマイルなど、引き継ぐか失効させたいポイントサービスはありますか？'],
+  [2,'スマホやパソコンが起動しなくなった際、ロック解除パスコードを誰に教えますか？'],
+  [2,'利用している主要なSNS（LINE, X, Instagram等）のアカウント処理希望（削除/追悼）は？'],
+  [2,'クラウドストレージ（Google Drive, iCloud, OneDrive等）の利用状況と保存データは？'],
+  [2,'パスワード管理ツールやメモ帳など、ID/PWをまとめた場所はどこですか？'],
+  [2,'他人に見られたくないデジタルデータ（写真・ファイル等）の破棄手順はありますか？'],
+  [2,'運営しているブログ・WEBサイト・有料コンテンツなどはありますか？'],
+  [2,'パソコンやスマホ端末自体は誰に譲渡・処分してほしいですか？'],
+  [3,'万が一、自力で意思決定できなくなった場合のキーパーソン（代理人）は誰ですか？'],
+  [3,'認知症や重度障害になった場合、自宅介護と施設入所のどちらを希望しますか？'],
+  [3,'介護や医療にかかる費用はどの資産から捻出してほしいですか？'],
+  [3,'延命治療（尊厳死・人工呼吸器・胃ろう等）についての希望はありますか？'],
+  [3,'臓器提供や病理解剖についての意思・希望はありますか？'],
+  [3,'余命告知を受けたいですか？それとも家族だけに知らせてほしいですか？'],
+  [3,'痛みの緩和ケア（ペインクリニック等）に対する希望はありますか？'],
+  [3,'介護が必要になった場合、特に配慮してほしいこと（趣味、食べ物、音など）は？'],
+  [4,'万が一の際、真っ先に知らせてほしい友人・知人のリストはどこにありますか？'],
+  [4,'葬儀の規模（家族葬、一般葬、直葬など）の希望はありますか？'],
+  [4,'葬儀の宗教・宗派や、お願いしたい寺院・神社・教会はありますか？'],
+  [4,'葬儀費用や遺影写真として使ってほしい画像は準備・指定していますか？'],
+  [4,'納骨先やお墓（先祖代々のお墓、樹木葬、散骨など）の希望はありますか？'],
+  [4,'家の中の遺品（服・本・コレクション等）の整理・処分の方針はありますか？'],
+  [4,'大切にしているペットがいる場合、万が一の引き取り手は決まっていますか？'],
+  [4,'葬儀で流してほしい曲や、飾ってほしい思い出の品はありますか？'],
+  [5,'あなたの人生で最も大切だった出来事や思い出は何ですか？'],
+  [5,'家族やパートナーへ伝えたい感謝のメッセージを教えてください。'],
+  [5,'友人や恩人など、特定の人へ残したい個別のメッセージはありますか？'],
+  [5,'あなたの好きなもの（音楽・本・映画・食べ物・場所）を教えてください。'],
+  [5,'遺言書（公正証書遺言・自筆証書遺言など）を作成していますか？保管場所は？'],
+  [5,'遺産相続や財産分与に関して、大まかな希望や方針はありますか？'],
+  [5,'あなたの家系図や親族の連絡先でメモしておきたいことはありますか？'],
+  [5,'これまでの人生で一番誇りに思っていること・達成したことは？'],
+  [5,'残された人たちに、どんな風にあなたを思い出してほしいですか？'],
+  [5,'今日という日を迎えて、今一番大切にしたい想いは何ですか？']
+  ];
+  var IVS = [['half','半年後'],['year','1年後'],['never','変更があるまで聞かない']];
+  var DEFAULTS = QS.map(function (q, i) { return { id: 'q' + (i + 1), cat: q[0], text: q[1], isDefault: true, hidden: false }; });
+
+  var mem = null, S = null, unlocked = false, installEv = null, noteOpen = {};
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function today() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+  function toast(m) { var t = $('toast'); if (!t) return; t.textContent = m; t.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('on'); }, 2200); }
+  function hash(s) { var x = 5381; s = 'moshimo:' + s; for (var i = 0; i < s.length; i++) x = ((x << 5) + x + s.charCodeAt(i)) | 0; return 'h' + x; }
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); return true; } catch (e) { return false; } }
+
+  function fresh() { return { questions: DEFAULTS.map(function (q) { return Object.assign({}, q); }), answers: {}, today: { date: '', done: false }, settings: { lock: false, pass: '', remind: 'off', lastBackup: Date.now() }, seq: 0 }; }
+  function normalize(o) {
+    var b = fresh();
+    if (!o || typeof o !== 'object') return b;
+    try {
+      if (Array.isArray(o.questions)) {
+        var map = {}; o.questions.forEach(function (q) { if (q && q.id) map[q.id] = q; });
+        var list = b.questions.map(function (d) { var m = map[d.id]; return m ? { id: d.id, cat: +m.cat >= 0 && +m.cat < CATS.length ? +m.cat : d.cat, text: String(m.text || d.text), isDefault: true, hidden: !!m.hidden } : d; });
+        o.questions.forEach(function (q) { if (q && q.id && !q.isDefault) list.push({ id: String(q.id), cat: +q.cat >= 0 && +q.cat < CATS.length ? +q.cat : 5, text: String(q.text || ''), isDefault: false, hidden: !!q.hidden }); });
+        b.questions = list;
+      }
+      if (o.answers && typeof o.answers === 'object') b.answers = o.answers;
+      if (o.today && typeof o.today === 'object') b.today = { date: String(o.today.date || ''), done: !!o.today.done };
+      if (o.settings && typeof o.settings === 'object') { b.settings.lock = !!o.settings.lock; b.settings.pass = String(o.settings.pass || ''); b.settings.remind = o.settings.remind === 'monthly' ? 'monthly' : 'off'; b.settings.lastBackup = +o.settings.lastBackup || Date.now(); }
+      b.seq = +o.seq || 0;
+      if (b.settings.lock && !b.settings.pass) b.settings.lock = false;
+    } catch (e) { }
+    return b;
+  }
+  function load() { try { var r = lsGet(KEY); if (r) return normalize(JSON.parse(r)); } catch (e) { } return mem ? normalize(mem) : fresh(); }
+  function save() { try { var s = JSON.stringify(S); mem = JSON.parse(s); if (!lsSet(KEY, s)) toast('保存に失敗しました。バックアップをおすすめします'); } catch (e) { toast('保存に失敗しました'); } }
+
+  function qById(id) { return S.questions.filter(function (q) { return q.id === id; })[0]; }
+  function nextOf(iv) { return iv === 'half' ? Date.now() + 182 * DAY : iv === 'year' ? Date.now() + 365 * DAY : null; }
+  function ivHtml(name, cur) { return '<div class="iv" role="radiogroup" aria-label="次回確認時期">' + IVS.map(function (o) { return '<label><input type="radio" name="' + name + '" value="' + o[0] + '"' + (o[0] === cur ? ' checked' : '') + '><span>' + o[1] + '</span></label>'; }).join('') + '</div>'; }
+  function ivVal(scope, name) { var r = scope && scope.querySelector('input[name="' + name + '"]:checked'); return r ? r.value : 'year'; }
+  function fmt(t) { try { var d = new Date(t); return d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate(); } catch (e) { return ''; } }
+
+  /* ---------- Home ---------- */
+  function pick() {
+    if (S.today.date === today() && S.today.done) return { t: 'done' };
+    var un = S.questions.filter(function (q) { return !q.hidden && q.text && !S.answers[q.id]; })[0];
+    if (un) return { t: 'new', q: un };
+    var rv = S.questions.filter(function (q) { var a = S.answers[q.id]; return !q.hidden && a && a.next && a.next <= Date.now(); })[0];
+    if (rv) return { t: 'review', q: rv };
+    return { t: 'none' };
+  }
+  function recallHtml() {
+    var ids = S.questions.filter(function (q) { var a = S.answers[q.id]; return !q.hidden && a && a.text; });
+    if (!ids.length) return '<p class="muted">まだ振り返る回答がありません。</p>';
+    var q = ids[Math.floor(Math.random() * ids.length)], a = S.answers[q.id];
+    return '<div class="card"><span class="badge">🌸 思い出を振り返る</span><div class="q">' + esc(q.text) + '</div><div class="ans">' + esc(a.text) + '</div><button data-act="recall">別の回答を見る</button></div>';
+  }
+  function renderHome() {
+    var el = $('v-home'); if (!el) return;
+    var p = pick(), h = '';
+    var total = S.questions.filter(function (q) { return !q.hidden; }).length;
+    var done = S.questions.filter(function (q) { return !q.hidden && S.answers[q.id]; }).length;
+    h += '<p class="muted">これまでに <b>' + done + ' / ' + total + '</b> 問に答えました（' + (total ? Math.round(done * 100 / total) : 0) + '%）</p>';
+    h += '<div class="card" style="padding:0"><div style="height:14px;background:var(--main-l);border-radius:16px;overflow:hidden"><div style="height:100%;width:' + (total ? Math.round(done * 100 / total) : 0) + '%;background:var(--main)"></div></div></div>';
+    if (p.t === 'new' || p.t === 'review') {
+      var a = S.answers[p.q.id], isR = p.t === 'review';
+      h += '<div class="card" id="homeCard" data-id="' + p.q.id + '"><span class="badge ' + (isR ? 'todo' : '') + '">' + (isR ? '🔁 見直しのお時期です' : '✨ 今日の1問') + '</span> <span class="badge">' + esc(CATS[p.q.cat]) + '</span>';
+      h += '<div class="q">' + esc(p.q.text) + '</div>';
+      if (isR) h += '<p class="muted">前回の回答（' + fmt(a.at) + '）をそのまま表示しています。変わっていなければ、下のボタンを1回押すだけです。</p>';
+      h += '<textarea id="ans" aria-label="回答" placeholder="思いつくことを、短くても大丈夫です">' + esc(a ? a.text : '') + '</textarea>';
+      h += '<p style="margin:10px 0 0"><b>次に見直す時期</b></p>' + ivHtml('iv', a ? a.iv : 'year');
+      if (isR) h += '<button class="pri" data-act="keep" style="width:100%;margin-bottom:8px">✔ 変更なし（これで完了）</button>';
+      h += '<button class="' + (isR ? '' : 'pri') + '" data-act="saveHome" style="width:100%">' + (isR ? '修正して保存する' : '保存する') + '</button>';
+      if (!isR) h += '<button class="link" data-act="skip" style="width:100%">今日はこの質問をとばす</button>';
+      h += '</div>';
+    } else {
+      h += '<div class="card"><span class="badge done">🎉 ' + (p.t === 'done' ? '今日の1問は完了です' : 'おつかれさまでした') + '</span><div class="q">本日の質問はありません</div><p class="muted">また明日、お会いしましょう。</p>';
+      h += '<div class="row"><button data-act="gotoAdd">✍️ 自分で新しい質問を追加する</button>';
+      if (p.t === 'done' && S.questions.some(function (q) { return !q.hidden && !S.answers[q.id]; })) h += '<button data-act="more">もう1問答える</button>';
+      h += '</div></div>' + recallHtml();
+    }
+    el.innerHTML = h;
+  }
+  var skipped = {};
+  function finishToday() { S.today = { date: today(), done: true }; }
+
+  /* ---------- Notes ---------- */
+  var fq = '', fc = 'all';
+  function renderNote() {
+    var el = $('v-note'); if (!el) return;
+    var h = '<div class="row" style="margin-bottom:10px"><input type="search" id="fq" placeholder="🔍 キーワードで探す" value="' + esc(fq) + '" aria-label="キーワード検索"><select id="fc" aria-label="カテゴリ"><option value="all">すべてのカテゴリ</option>' + CATS.map(function (c, i) { return '<option value="' + i + '"' + (String(i) === fc ? ' selected' : '') + '>' + esc(c) + '</option>'; }).join('') + '</select></div>';
+    h += '<button class="pri" data-act="print" style="width:100%;margin-bottom:6px">🖨 印刷 / PDFで保存</button>';
+    var kw = fq.trim().toLowerCase(), n = 0;
+    CATS.forEach(function (c, ci) {
+      if (fc !== 'all' && String(ci) !== fc) return;
+      var qs = S.questions.filter(function (q) {
+        if (q.hidden || q.cat !== ci) return false;
+        if (!kw) return true;
+        var a = S.answers[q.id]; return (q.text + ' ' + (a ? a.text : '')).toLowerCase().indexOf(kw) >= 0;
+      });
+      if (!qs.length) return;
+      n += qs.length;
+      h += '<h2>' + esc(c) + '</h2>';
+      qs.forEach(function (q) {
+        var a = S.answers[q.id];
+        h += '<details data-id="' + q.id + '"' + (noteOpen[q.id] ? ' open' : '') + '><summary><span>' + esc(q.text) + '</span><span class="badge ' + (a ? 'done' : 'todo') + '">' + (a ? '✔ 回答済み' : '未回答') + '</span></summary><div class="dbody" data-id="' + q.id + '">';
+        h += '<textarea aria-label="回答" placeholder="ここに入力">' + esc(a ? a.text : '') + '</textarea>' + ivHtml('iv-' + q.id, a ? a.iv : 'year');
+        h += '<button class="pri" data-act="saveNote" style="width:100%">保存する</button>' + (a ? '<p class="muted">最終更新：' + fmt(a.at) + '</p>' : '') + '</div></details>';
+      });
+    });
+    if (!n) h += '<p class="muted">該当する質問がありません。</p>';
+    el.innerHTML = h;
+    var f = $('fq'); if (f) f.addEventListener('input', function () { fq = f.value; var pos = f.selectionStart; renderNote(); var g = $('fq'); if (g) { g.focus(); try { g.setSelectionRange(pos, pos); } catch (e) { } } });
+    var s = $('fc'); if (s) s.addEventListener('change', function () { fc = s.value; renderNote(); });
+    Array.prototype.forEach.call(el.querySelectorAll('details'), function (d) { d.addEventListener('toggle', function () { noteOpen[d.getAttribute('data-id')] = d.open; }); });
+  }
+  function buildPrint() {
+    var p = $('printArea'); if (!p) return;
+    var h = '<h1>エンディングノート（もしもいちもん）</h1><p style="text-align:center">出力日：' + fmt(Date.now()) + '</p>';
+    CATS.forEach(function (c, ci) {
+      var qs = S.questions.filter(function (q) { return !q.hidden && q.cat === ci; });
+      if (!qs.length) return;
+      h += '<h2>' + esc(c) + '</h2>';
+      qs.forEach(function (q) { var a = S.answers[q.id]; h += '<div class="pi"><div class="pq">Q. ' + esc(q.text) + '</div><div class="pa">' + (a && a.text ? esc(a.text) : '（未回答）') + '</div></div>'; });
+    });
+    p.innerHTML = h;
+  }
+
+  /* ---------- Settings ---------- */
+  function renderSet() {
+    var el = $('v-set'); if (!el) return;
+    var st = S.settings, h = '';
+    h += '<h2>✍️ 質問のカスタマイズ</h2><div class="card" id="addBox"><select id="nc" aria-label="カテゴリ">' + CATS.map(function (c, i) { return '<option value="' + i + '">' + esc(c) + '</option>'; }).join('') + '</select><textarea id="nt" style="min-height:80px;margin:8px 0" placeholder="新しい質問を入力"></textarea><button class="pri" data-act="addQ" style="width:100%">質問を追加する</button></div>';
+    h += '<details><summary><span>質問の一覧（編集・非表示）</span></summary><div class="dbody">';
+    S.questions.forEach(function (q) {
+      h += '<div class="qrow" data-id="' + q.id + '"><span class="badge ' + (q.hidden ? 'todo' : '') + '">' + (q.hidden ? '非表示中' : '表示中') + (q.isDefault ? '' : '・自作') + '</span><textarea style="min-height:70px;margin:6px 0" aria-label="質問文">' + esc(q.text) + '</textarea><select aria-label="カテゴリ">' + CATS.map(function (c, i) { return '<option value="' + i + '"' + (i === q.cat ? ' selected' : '') + '>' + esc(c) + '</option>'; }).join('') + '</select><div class="row" style="margin-top:6px"><button data-act="qSave">保存</button><button class="warn" data-act="qHide">' + (q.hidden ? '表示にもどす' : '非表示にする') + '</button></div></div>';
+    });
+    h += '</div></details>';
+    h += '<h2>🔒 パスコードロック</h2><div class="card"><label class="sw"><input type="checkbox" id="lockSw"' + (st.lock ? ' checked' : '') + '><span><b>' + (st.lock ? 'オン' : 'オフ') + '</b>（アプリを開くときに4けたの数字を入力）</span></label>';
+    if (st.lock) h += '<p class="muted">パスコードを変更するときは、新しい数字を入力してください。</p>';
+    h += '<div id="lockSetup" style="' + (st.lock ? '' : 'display:none') + '"><input type="password" id="p1" inputmode="numeric" maxlength="4" pattern="[0-9]*" placeholder="4けたの数字" aria-label="新しいパスコード" style="margin:6px 0"><input type="password" id="p2" inputmode="numeric" maxlength="4" pattern="[0-9]*" placeholder="もう一度入力" aria-label="確認用パスコード"><button class="pri" data-act="setPass" style="width:100%;margin-top:8px">' + (st.lock ? 'パスコードを変更する' : 'この数字で設定する') + '</button></div></div>';
+    h += '<h2>💾 バックアップ・復元</h2><div class="card"><p class="muted" style="margin-top:0">書いた内容をファイルに保存して、いつでも元にもどせます。</p><div class="row"><button class="pri" data-act="export">⬇ 保存する</button><button data-act="share">📤 共有する</button></div><div class="row" style="margin-top:8px"><button data-act="importBtn">⬆ ファイルから復元</button></div><input type="file" id="impFile" accept=".json,application/json" style="display:none"><p style="margin:12px 0 4px"><b>バックアップのお知らせ</b></p><select id="remind" aria-label="お知らせ"><option value="off"' + (st.remind === 'off' ? ' selected' : '') + '>お知らせしない</option><option value="monthly"' + (st.remind === 'monthly' ? ' selected' : '') + '>月に1回お知らせする</option></select><p class="muted">最後の保存：' + fmt(st.lastBackup) + '</p></div>';
+    h += '<h2>⚠️ データの初期化</h2><div class="card"><button class="warn" data-act="wipe" style="width:100%">すべてのデータを消して最初から</button></div>';
+    el.innerHTML = h;
+    var sw = $('lockSw'); if (sw) sw.addEventListener('change', function () {
+      if (sw.checked) { var b = $('lockSetup'); if (b) b.style.display = ''; toast('下で4けたの数字を設定してください'); }
+      else {
+        var cur = ''; try { cur = prompt('パスコードをオフにします。今のパスコードを入力してください'); } catch (e) { }
+        if (cur !== null && hash(cur) === S.settings.pass) { S.settings.lock = false; S.settings.pass = ''; save(); toast('パスコードをオフにしました'); renderSet(); } else { toast('パスコードが違います'); sw.checked = true; }
+      }
+    });
+    var rm = $('remind'); if (rm) rm.addEventListener('change', function () { S.settings.remind = rm.value; save(); toast('お知らせの設定を変えました'); });
+    var inf = $('impFile'); if (inf) inf.addEventListener('change', function () {
+      var f = inf.files && inf.files[0]; if (!f) return;
+      var r = new FileReader();
+      r.onload = function () { try { var o = JSON.parse(r.result); if (!o || !o.questions || !o.answers) throw new Error('x'); if (!confirm('いまの内容を、ファイルの内容で置き換えます。よろしいですか？')) return; S = normalize(o); save(); renderAll(); toast('復元しました'); } catch (e) { toast('このファイルは読み込めませんでした'); } };
+      r.onerror = function () { toast('ファイルを読み込めませんでした'); };
+      try { r.readAsText(f); } catch (e) { toast('ファイルを読み込めませんでした'); }
+      inf.value = '';
+    });
+  }
+
+  function backupBlob() { var d = JSON.stringify({ app: 'moshimo-ichimon', exportedAt: new Date().toISOString(), questions: S.questions, answers: S.answers, today: S.today, settings: S.settings, seq: S.seq }, null, 1); return new Blob([d], { type: 'application/json' }); }
+  function fname() { var d = new Date(); return 'moshimo-ichimon-' + d.getFullYear() + ('0' + (d.getMonth() + 1)).slice(-2) + ('0' + d.getDate()).slice(-2) + '.json'; }
+  function download() {
+    try { var u = URL.createObjectURL(backupBlob()), a = document.createElement('a'); a.href = u; a.download = fname(); document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(u); if (a.parentNode) a.parentNode.removeChild(a); }, 500); S.settings.lastBackup = Date.now(); save(); toast('保存しました'); renderSet(); } catch (e) { toast('保存できませんでした'); }
+  }
+  function share() {
+    try {
+      var f = new File([backupBlob()], fname(), { type: 'application/json' });
+      if (navigator.canShare && navigator.canShare({ files: [f] }) && navigator.share) { navigator.share({ files: [f], title: 'もしもいちもん バックアップ' }).then(function () { S.settings.lastBackup = Date.now(); save(); toast('共有しました'); }).catch(function () { }); }
+      else { toast('この端末では共有が使えないため、保存します'); download(); }
+    } catch (e) { download(); }
+  }
+
+  /* ---------- Lock ---------- */
+  function showLock() { if (!S.settings.lock) return; unlocked = false; var o = $('lock'); if (o) o.classList.add('on'); var i = $('lockIn'); if (i) { i.value = ''; setTimeout(function () { try { i.focus(); } catch (e) { } }, 100); } var e = $('lockErr'); if (e) e.textContent = ''; }
+  function tryUnlock() { var i = $('lockIn'), e = $('lockErr'); if (!i) return; if (hash(i.value) === S.settings.pass) { unlocked = true; $('lock').classList.remove('on'); i.value = ''; remindCheck(); } else { if (e) e.textContent = '数字が違います。もう一度お試しください'; i.value = ''; } }
+  function remindCheck() { try { if (S.settings.remind === 'monthly' && Date.now() - S.settings.lastBackup > 30 * DAY) { toast('📦 バックアップのお時期です（設定から保存できます）'); } } catch (e) { } }
+
+  /* ---------- Tabs / render ---------- */
+  function renderAll() { try { renderHome(); renderNote(); renderSet(); buildPrint(); } catch (e) { var m = $('v-home'); if (m) m.innerHTML = '<div class="card">表示中に問題が起きました。画面を読み込み直してください。</div>'; } }
+  function tab(t) {
+    ['home', 'note', 'set'].forEach(function (k) { var v = $('v-' + k); if (v) v.classList.toggle('on', k === t); });
+    Array.prototype.forEach.call(document.querySelectorAll('nav.tabs button'), function (b) { if (b.getAttribute('data-t') === t) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+    if (t === 'home') renderHome(); if (t === 'note') renderNote(); if (t === 'set') renderSet();
+    try { window.scrollTo(0, 0); } catch (e) { }
+  }
+
+  /* ---------- Actions ---------- */
+  document.addEventListener('click', function (ev) {
+    var b = ev.target && ev.target.closest ? ev.target.closest('[data-act]') : null; if (!b) return;
+    var act = b.getAttribute('data-act');
+    try {
+      if (act === 'tab') tab(b.getAttribute('data-t'));
+      else if (act === 'help') $('helpOv').classList.add('on');
+      else if (act === 'closeOv') $('helpOv').classList.remove('on');
+      else if (act === 'unlock') tryUnlock();
+      else if (act === 'forgot') { if (confirm('パスコードを忘れた場合は、データをすべて消して最初からやり直す必要があります。\n書いた内容はもどせません。本当に初期化しますか？')) { S = fresh(); save(); $('lock').classList.remove('on'); unlocked = true; renderAll(); tab('home'); toast('初期化しました'); } }
+      else if (act === 'saveHome') {
+        var c = $('homeCard'), id = c.getAttribute('data-id'), t = ($('ans').value || '').trim();
+        if (!t) { toast('回答を入力してください'); return; }
+        var iv = ivVal(c, 'iv'); S.answers[id] = { text: t, at: Date.now(), iv: iv, next: nextOf(iv) }; finishToday(); save(); toast('保存しました。今日の1問、おつかれさまでした'); renderAll();
+      }
+      else if (act === 'keep') {
+        var c2 = $('homeCard'), id2 = c2.getAttribute('data-id'), a = S.answers[id2]; if (!a) return;
+        a.next = nextOf(a.iv); a.confirmedAt = Date.now(); finishToday(); save(); toast('「変更なし」で完了しました'); renderAll();
+      }
+      else if (act === 'skip') { var c3 = $('homeCard'); skipped[c3.getAttribute('data-id')] = 1; var q = qById(c3.getAttribute('data-id')); if (q) { S.questions = S.questions.filter(function (x) { return x !== q; }); S.questions.push(q); } save(); toast('別の質問にしました'); renderHome(); }
+      else if (act === 'more') { S.today = { date: '', done: false }; save(); renderHome(); }
+      else if (act === 'recall') renderHome();
+      else if (act === 'gotoAdd') { tab('set'); var ab = $('addBox'); if (ab && ab.scrollIntoView) ab.scrollIntoView(); }
+      else if (act === 'saveNote') {
+        var body = b.closest('.dbody'), id3 = body.getAttribute('data-id'), t3 = (body.querySelector('textarea').value || '').trim();
+        if (!t3) { toast('回答を入力してください'); return; }
+        var iv3 = ivVal(body, 'iv-' + id3); S.answers[id3] = { text: t3, at: Date.now(), iv: iv3, next: nextOf(iv3) }; save(); noteOpen[id3] = true; toast('保存しました'); renderNote(); buildPrint(); renderHome();
+      }
+      else if (act === 'print') { buildPrint(); setTimeout(function () { try { window.print(); } catch (e) { toast('印刷を開けませんでした'); } }, 100); }
+      else if (act === 'addQ') {
+        var tx = ($('nt').value || '').trim(); if (!tx) { toast('質問を入力してください'); return; }
+        S.seq = (S.seq || 0) + 1; S.questions.unshift({ id: 'c' + Date.now() + '_' + S.seq, cat: +$('nc').value || 0, text: tx, isDefault: false, hidden: false });
+        save(); toast('質問を追加しました。次に出題されます'); renderAll();
+      }
+      else if (act === 'qSave') { var r = b.closest('.qrow'), q2 = qById(r.getAttribute('data-id')), v = (r.querySelector('textarea').value || '').trim(); if (!q2 || !v) { toast('質問文を入力してください'); return; } q2.text = v; q2.cat = +r.querySelector('select').value; save(); toast('保存しました'); renderAll(); }
+      else if (act === 'qHide') { var r2 = b.closest('.qrow'), q3 = qById(r2.getAttribute('data-id')); if (q3) { q3.hidden = !q3.hidden; save(); toast(q3.hidden ? '非表示にしました' : '表示にもどしました'); renderAll(); } }
+      else if (act === 'setPass') {
+        var a1 = $('p1').value, a2 = $('p2').value;
+        if (!/^\d{4}$/.test(a1)) { toast('4けたの数字を入力してください'); return; }
+        if (a1 !== a2) { toast('2つの数字が一致しません'); return; }
+        S.settings.lock = true; S.settings.pass = hash(a1); unlocked = true; save(); toast('パスコードを設定しました'); renderSet();
+      }
+      else if (act === 'export') download();
+      else if (act === 'share') share();
+      else if (act === 'importBtn') { var f = $('impFile'); if (f) f.click(); }
+      else if (act === 'wipe') { if (confirm('書いた内容も設定もすべて消えます。本当に初期化しますか？') && confirm('もう一度確認します。消したデータはもどせません。よろしいですか？')) { S = fresh(); save(); renderAll(); tab('home'); toast('初期化しました'); } }
+    } catch (e) { toast('うまく動きませんでした。もう一度お試しください'); }
+  });
+  var li = $('lockIn'); if (li) { li.addEventListener('input', function () { if (li.value.length === 4) tryUnlock(); }); li.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryUnlock(); }); }
+  var ho = $('helpOv'); if (ho) ho.addEventListener('click', function (e) { if (e.target === ho) ho.classList.remove('on'); });
+
+  /* ---------- PWA install ---------- */
+  function showInstall() { if (lsGet('moshimo_install_dismissed')) return; var i = $('install'); if (i) setTimeout(function () { i.classList.add('on'); }, 1500); }
+  try {
+    var standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone;
+    window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); installEv = e; if (!standalone) showInstall(); });
+    var ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    if (ios && !standalone) { var m = $('installMsg'); if (m) m.textContent = '画面下の共有ボタン（□↑）から「ホーム画面に追加」を選んでください。'; var g = $('installGo'); if (g) g.style.display = 'none'; showInstall(); }
+    $('installGo').addEventListener('click', function () { if (installEv) { try { installEv.prompt(); } catch (e) { } installEv = null; } $('install').classList.remove('on'); lsSet('moshimo_install_dismissed', '1'); });
+    $('installNo').addEventListener('click', function () { $('install').classList.remove('on'); lsSet('moshimo_install_dismissed', '1'); });
+    window.addEventListener('appinstalled', function () { $('install').classList.remove('on'); lsSet('moshimo_install_dismissed', '1'); });
+  } catch (e) { }
+
+  /* ---------- Service Worker ---------- */
+  try { if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw.js').catch(function () { }); } } catch (e) { }
+
+  /* ---------- Start ---------- */
+  S = load();
+  renderAll();
+  if (S.settings.lock) showLock(); else remindCheck();
+  document.addEventListener('visibilitychange', function () { try { if (document.visibilityState === 'hidden') { if (S.settings.lock) unlocked = false; } else if (S.settings.lock && !unlocked) showLock(); } catch (e) { } });
+  window.addEventListener('pageshow', function (e) { try { if (e.persisted && S.settings.lock) showLock(); } catch (x) { } });
+});
+</script>
+</body>
+</html>
